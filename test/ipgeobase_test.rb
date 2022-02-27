@@ -8,19 +8,14 @@ class IpgeobaseTest < Minitest::Test
   end
 
   def test_it_does_something_useful
-    assert true
-  end
+    stub_request(:any, 'http://ip-api.com/xml/83.169.216.199')
+      .to_return(body: File.read('test/fixtures/response.xml'), status: 200)
 
-  def test_req
-    stub_request(:post, 'www.example.com')
-      .with(body: 'abc', headers: { 'Content-Length' => 3 })
-
-    uri = URI.parse('http://www.example.com/')
-    req = Net::HTTP::Post.new(uri.path)
-    req['Content-Length'] = 3
-
-    res = Net::HTTP.start(uri.host, uri.port) do |http|
-      http.request(req, 'abc')
-    end
+    ip_meta = Ipgeobase.lookup('83.169.216.199')
+    assert { ip_meta.city == 'Baranchinskiy' }
+    assert { ip_meta.country == 'Russia' }
+    assert { ip_meta.countryCode == 'RU' }
+    assert { ip_meta.lat == '58.1617' }
+    assert { ip_meta.lon == '59.6991' }
   end
 end

@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['dev@liocha.ru']
 
   spec.summary       = 'Library for requests to ip-api.com.'
-  spec.description   = 'The gem that works with this service is ip-api.com. Takes an IP address and returns a metadata object.'
+  spec.description   = 'The gem that works with ip-api.com service. Takes an IP address and returns a metadata object.'
   spec.homepage      = 'https://github.com/Liocha/ipgeobase'
   spec.required_ruby_version = '>= 2.6.0'
 
