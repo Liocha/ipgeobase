@@ -7,15 +7,16 @@ class IpgeobaseTest < Minitest::Test
     refute_nil ::Ipgeobase::VERSION
   end
 
-  def test_it_does_something_useful
-    stub_request(:any, 'http://ip-api.com/xml/83.169.216.199')
+  def test_general_functionality
+    ip = '83.169.216.199'
+    stub_request(:get, "#{$endpoint_api}#{ip}")
       .to_return(body: File.read('test/fixtures/response.xml'), status: 200)
 
     ip_meta = Ipgeobase.lookup('83.169.216.199')
     assert { ip_meta.city == 'Baranchinskiy' }
     assert { ip_meta.country == 'Russia' }
     assert { ip_meta.countryCode == 'RU' }
-    assert { ip_meta.lat == '58.1617' }
-    assert { ip_meta.lon == '59.6991' }
+    assert { ip_meta.lat == 58.1617 }
+    assert { ip_meta.lon == 59.6991 }
   end
 end
